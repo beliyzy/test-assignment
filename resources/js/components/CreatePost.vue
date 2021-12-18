@@ -12,7 +12,8 @@
                     id="title"
                     placeholder="Введите заголовок поста"
                     required
-                    v-model="title">
+                    v-model="title"
+                >
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Описание поста</label>
