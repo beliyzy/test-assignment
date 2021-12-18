@@ -11,9 +11,11 @@ window.Vue = require('vue').default;
 import VueRouter from 'vue-router';
 import App from "./views/App";
 import routers from './router';
+import { store } from './store';
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-
-Vue.use(VueRouter);
+Vue.use(VueRouter, Vuex);
 
 
 
@@ -40,5 +42,6 @@ const app = new Vue({
     el: '#app',
     data: { loading: false },
     render: h => h(App),
-    router
+    router,
+    store
 });
