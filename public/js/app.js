@@ -2111,6 +2111,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CreatePost.vue",
   data: function data() {
@@ -2208,6 +2209,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2218,10 +2226,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Post",
-  props: ['id', 'post']
+  props: ['id'],
+  methods: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)(['getPost'])),
+  created: function created() {
+    this.getPost(this.id);
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)(['post']))
 });
 
 /***/ }),
@@ -2309,10 +2322,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return _this.deletePost(id);
 
               case 2:
-                _context.next = 4;
-                return _this.getPosts();
-
-              case 4:
               case "end":
                 return _context.stop();
             }
@@ -2337,10 +2346,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 3:
-                _context2.next = 5;
-                return _this2.getPosts();
-
-              case 5:
               case "end":
                 return _context2.stop();
             }
@@ -2350,15 +2355,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   created: function created() {
-    this.getPosts(); // this.addPost({
-    //     title: 'Fourth Post',
-    //     description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto blanditiis deleniti laborum libero! Alias aliquid, debitis deleniti earum enim error excepturi harum iste modi optio perspiciatis quibusdam, recusandae, rerum ullam.'
-    // })
+    this.getPosts();
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapState)(['posts'])),
   watch: {
     posts: function posts() {
-      console.log('WATCH');
+      this.getPosts();
     }
   }
 });
@@ -2538,12 +2540,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_3__["default"]);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_3__["default"].Store({
   state: {
-    posts: []
+    posts: [],
+    post: {}
   },
   getters: {},
   mutations: {
     setPosts: function setPosts(state, data) {
       state.posts = data;
+    },
+    setPost: function setPost(state, data) {
+      state.post = data;
     }
   },
   actions: {
@@ -2572,14 +2578,18 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__["default"].Store({
 
       return getPosts;
     }(),
-    addPost: function () {
-      var _addPost = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(context, data) {
+    getPost: function () {
+      var _getPost = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(context, id) {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/posts/create', data);
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/post', {
+                  id: id
+                }).then(function (response) {
+                  return context.commit('setPost', response.data);
+                });
 
               case 2:
               case "end":
@@ -2589,21 +2599,21 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__["default"].Store({
         }, _callee2);
       }));
 
-      function addPost(_x2, _x3) {
-        return _addPost.apply(this, arguments);
+      function getPost(_x2, _x3) {
+        return _getPost.apply(this, arguments);
       }
 
-      return addPost;
+      return getPost;
     }(),
-    deletePost: function () {
-      var _deletePost = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(context, id) {
+    addPost: function () {
+      var _addPost = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(context, data) {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/posts/delete", {
-                  id: id
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/posts/create', data).then(function (response) {
+                  return context.commit('setPosts', response.data);
                 });
 
               case 2:
@@ -2614,7 +2624,34 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_3__["default"].Store({
         }, _callee3);
       }));
 
-      function deletePost(_x4, _x5) {
+      function addPost(_x4, _x5) {
+        return _addPost.apply(this, arguments);
+      }
+
+      return addPost;
+    }(),
+    deletePost: function () {
+      var _deletePost = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(context, id) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/posts/delete", {
+                  id: id
+                }).then(function (response) {
+                  return context.commit('setPosts', response.data);
+                });
+
+              case 2:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }));
+
+      function deletePost(_x6, _x7) {
         return _deletePost.apply(this, arguments);
       }
 
@@ -7032,7 +7069,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".posts {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr;\n  grid-gap: 30px;\n}\n.posts .card-buttons {\n  display: flex;\n  justify-content: space-between;\n}\n.posts .card-body {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.post-description {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 4;\n  -webkit-box-orient: vertical;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".posts {\n  display: grid;\n  grid-template-columns: 1fr 1fr 1fr;\n  grid-gap: 30px;\n}\n.posts .card-buttons {\n  display: flex;\n  justify-content: space-between;\n  margin-top: 20px;\n}\n.posts .card-body {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.posts .card-title {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 1;\n  -webkit-box-orient: vertical;\n}\n.posts .card-text {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: -webkit-box;\n  -webkit-line-clamp: 4;\n  -webkit-box-orient: vertical;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -39781,9 +39818,11 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "alert alert-info" }, [
-      _c("p", { staticClass: "lead" }, [
-        _vm._v("\n            Номер поста " + _vm._s(_vm.id) + "\n        "),
-      ]),
+      _c("h1", { staticClass: "display-4" }, [_vm._v(_vm._s(_vm.post.title))]),
+      _vm._v(" "),
+      _c("p", { staticClass: "lead" }, [_vm._v(_vm._s(_vm.post.description))]),
+      _vm._v(" "),
+      _c("div", { staticClass: "comments" }),
     ]),
   ])
 }

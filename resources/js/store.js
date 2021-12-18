@@ -6,13 +6,17 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        posts: []
+        posts: [],
+        post: {}
     },
     getters: {},
     mutations: {
         setPosts: (state, data) => {
             state.posts = data
         },
+        setPost: (state, data) => {
+            state.post = data
+        }
     },
     actions: {
         getPosts: async (context) => {
@@ -20,14 +24,21 @@ export const store = new Vuex.Store({
                 .post('/api/posts')
                 .then(response => context.commit('setPosts', response.data))
         },
+        getPost: async(context, id) => {
+            await axios
+                .post('/api/post', {id})
+                .then(response => context.commit('setPost', response.data))
+        },
         addPost: async (context, data) => {
             await axios
                 .post('/api/posts/create', data)
+                .then(response => context.commit('setPosts', response.data))
         },
         deletePost: async (context, id) => {
             await axios
                 .post(`/api/posts/delete`, {id})
-        }
+                .then(response => context.commit('setPosts', response.data))
+        },
     },
 });
 

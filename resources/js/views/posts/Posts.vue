@@ -46,29 +46,23 @@ export default {
         ...mapActions(['getPosts', 'addPost', 'deletePost']),
         async removePost(id) {
             await this.deletePost(id)
-            await this.getPosts()
         },
         async addNewPost({title, description}) {
             await this.addPost({
                 title: title,
                 description: description
             })
-            await this.getPosts()
         }
     },
     created() {
         this.getPosts();
-        // this.addPost({
-        //     title: 'Fourth Post',
-        //     description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto blanditiis deleniti laborum libero! Alias aliquid, debitis deleniti earum enim error excepturi harum iste modi optio perspiciatis quibusdam, recusandae, rerum ullam.'
-        // })
     },
     computed: {
         ...mapState(['posts']),
     },
     watch: {
         posts() {
-            console.log('WATCH')
+            this.getPosts()
         }
     }
 }
@@ -84,6 +78,7 @@ export default {
     .card-buttons {
         display: flex;
         justify-content: space-between;
+        margin-top: 20px;
     }
 
     .card-body {
@@ -91,14 +86,22 @@ export default {
         flex-direction: column;
         justify-content: space-between;
     }
+    .card-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+    .card-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+    }
 }
 
-.post-description {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-}
+
 
 </style>
