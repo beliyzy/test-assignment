@@ -1,12 +1,16 @@
 <template>
     <div>
         <div class="alert alert-info">
-            <h1 class="display-4">{{  post.title }}</h1>
+            <h1 class="display-4">{{ post.title }}</h1>
             <p class="lead">{{ post.description }}</p>
             <div class="comments"></div>
         </div>
         <div class="comments">
-            <div class="card" style="width: 18rem;" v-for="comment in comments.slice(currentPage*3, currentPage*3+3)">
+            <div
+                class="card"
+                style="width: 18rem;"
+                v-for="comment in comments.slice(currentPage*3, currentPage*3+3)"
+            >
                 <div class="card-body">
                     <div class="card-info">
                         <h5 class="card-title">{{ comment.name }}</h5>
@@ -24,16 +28,38 @@
             </div>
         </div>
         <ul class="pagination">
-            <li class="page-item" @click="currentPage !==0 ? currentPage-- : ''"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item" v-for="(page, index) in lastPage" @click="currentPage = index"><a class="page-link" href="#">{{  page  }}</a></li>
-            <li class="page-item" @click="currentPage !==lastPage-1 ? currentPage++ : ''"><a class="page-link" href="#">Next</a></li>
+            <li
+                class="page-item"
+                @click="currentPage !==0 ? currentPage-- : ''">
+                <a class="page-link" href="#">
+                    Previous
+                </a>
+            </li>
+            <li
+                class="page-item"
+                v-for="(page, index) in lastPage"
+                @click="currentPage = index">
+                <a
+                    class="page-link"
+                    :class="currentPage === index ? 'active-page' : ''"
+                    href="#">
+                    {{ page }}
+                </a>
+            </li>
+            <li
+                class="page-item"
+                @click="currentPage !==lastPage-1 ? currentPage++ : ''">
+                <a class="page-link" href="#">
+                    Next
+                </a>
+            </li>
         </ul>
         <CreateComment @add-comment="addNewComment"/>
     </div>
 </template>
 
 <script>
-import { mapActions, mapState, mapMutations } from "vuex";
+import {mapActions, mapState, mapMutations} from "vuex";
 import CreateComment from "../../components/CreateComment";
 
 export default {
@@ -96,6 +122,7 @@ export default {
         flex-direction: column;
         justify-content: space-between;
     }
+
     .card-title {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -103,6 +130,7 @@ export default {
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
     }
+
     .card-text {
         overflow: hidden;
         text-overflow: ellipsis;

@@ -2414,6 +2414,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2517,6 +2543,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -40597,7 +40629,7 @@ var render = function () {
             },
             [
               _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-                _vm._v("Previous"),
+                _vm._v("\n                Previous\n            "),
               ]),
             ]
           ),
@@ -40614,9 +40646,19 @@ var render = function () {
                 },
               },
               [
-                _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-                  _vm._v(_vm._s(page)),
-                ]),
+                _c(
+                  "a",
+                  {
+                    staticClass: "page-link",
+                    class: _vm.currentPage === index ? "active-page" : "",
+                    attrs: { href: "#" },
+                  },
+                  [
+                    _vm._v(
+                      "\n                " + _vm._s(page) + "\n            "
+                    ),
+                  ]
+                ),
               ]
             )
           }),
@@ -40633,7 +40675,7 @@ var render = function () {
             },
             [
               _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-                _vm._v("Next"),
+                _vm._v("\n                Next\n            "),
               ]),
             ]
           ),
@@ -40763,7 +40805,9 @@ var render = function () {
               },
               [
                 _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-                  _vm._v("Previous"),
+                  _vm._v(
+                    "\n                        Previous\n                    "
+                  ),
                 ]),
               ]
             ),
@@ -40773,7 +40817,6 @@ var render = function () {
                 "li",
                 {
                   staticClass: "page-item",
-                  class: _vm.currentPage === index + 1 ? "activePage" : "",
                   on: {
                     click: function ($event) {
                       _vm.currentPage = index
@@ -40781,9 +40824,15 @@ var render = function () {
                   },
                 },
                 [
-                  _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-                    _vm._v(_vm._s(page) + " " + _vm._s(index)),
-                  ]),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "page-link",
+                      class: _vm.currentPage === index ? "active-page" : "",
+                      attrs: { href: "#" },
+                    },
+                    [_vm._v(_vm._s(page) + " ")]
+                  ),
                 ]
               )
             }),
@@ -40809,7 +40858,7 @@ var render = function () {
           ],
           2
         ),
-        _vm._v("\n        " + _vm._s(_vm.currentPage) + "\n        "),
+        _vm._v(" "),
         _c("CreatePost", { on: { "add-post": _vm.addNewPost } }),
       ],
       1
