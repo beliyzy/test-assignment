@@ -27,10 +27,25 @@
                 </div>
             </div>
                 <ul class="pagination">
-                    <li class="page-item" @click="currentPage !==0 ? currentPage-- : ''"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item" v-for="(page, index) in lastPage" @click="currentPage = index"><a class="page-link" href="#">{{  page  }}</a></li>
-                    <li class="page-item" @click="currentPage !==lastPage-1 ? currentPage++ : ''"><a class="page-link" href="#">Next</a></li>
+                    <li
+                        class="page-item"
+                        @click="currentPage !==0 ? currentPage-- : ''">
+                        <a class="page-link" href="#">Previous</a>
+                    </li>
+                    <li
+                        class="page-item"
+                        v-for="(page, index) in lastPage"
+                        @click="currentPage = index"
+                        :class="currentPage === index+1 ? 'activePage' : ''"
+                    >
+                        <a class="page-link" href="#">{{  page  }} {{ index }}</a>
+                    </li>
+                    <li class="page-item"
+                        @click="currentPage !==lastPage-1 ? currentPage++ : ''">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
                 </ul>
+            {{ currentPage }}
             <CreatePost @add-post="addNewPost"/>
         </div>
     </div>
@@ -123,4 +138,8 @@ export default {
     margin-top: 30px;
 }
 
+.active-page {
+    background-color: #3f9ae5;
+    color: #fff;
+}
 </style>
