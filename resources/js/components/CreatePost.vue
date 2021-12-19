@@ -12,7 +12,7 @@
                     id="title"
                     placeholder="Введите заголовок поста"
                     required
-                    v-model="title"
+                    v-model.trim="title"
                 >
             </div>
             <div class="mb-3">
@@ -22,7 +22,7 @@
                     id="description"
                     rows="3"
                     required
-                    v-model="description"
+                    v-model.trim="description"
                 ></textarea>
             </div>
             <button

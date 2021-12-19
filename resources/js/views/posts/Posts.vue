@@ -5,7 +5,7 @@
                 Вот тут мы хотим увидеть список всех постов!
             </p>
             <div class="posts">
-                <div class="card" style="width: 18rem;" v-for="post in posts">
+                <div class="card" style="width: 18rem;" v-for="post in posts.slice(currentPage*3, currentPage*3+3)">
                     <div class="card-body">
                         <div class="card-info">
                             <h5 class="card-title">{{ post.title }}</h5>
@@ -26,6 +26,11 @@
                     </div>
                 </div>
             </div>
+                <ul class="pagination">
+                    <li class="page-item" @click="currentPage !==0 ? currentPage-- : ''"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item" v-for="(page, index) in lastPage" @click="currentPage = index"><a class="page-link" href="#">{{  page  }}</a></li>
+                    <li class="page-item" @click="currentPage !==lastPage-1 ? currentPage++ : ''"><a class="page-link" href="#">Next</a></li>
+                </ul>
             <CreatePost @add-post="addNewPost"/>
         </div>
     </div>
@@ -41,6 +46,12 @@ export default {
     components: {
         Post,
         CreatePost
+    },
+    data () {
+        return {
+            currentPage: 0,
+            lastPage: 0
+        }
     },
     methods: {
         ...mapActions(['getPosts', 'addPost', 'deletePost']),
@@ -63,6 +74,7 @@ export default {
     watch: {
         posts() {
             this.getPosts()
+            this.lastPage = Math.ceil(this.posts.length / 3)
         }
     }
 }
@@ -73,7 +85,11 @@ export default {
 .posts {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 30px;
+    gap: 75px;
+
+    .card {
+        height: 220px;
+    }
 
     .card-buttons {
         display: flex;
@@ -102,6 +118,9 @@ export default {
     }
 }
 
-
+.pagination {
+    justify-content: center;
+    margin-top: 30px;
+}
 
 </style>

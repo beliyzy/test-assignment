@@ -7,7 +7,8 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     state: {
         posts: [],
-        post: {}
+        post: {},
+        comments: []
     },
     getters: {},
     mutations: {
@@ -16,6 +17,9 @@ export const store = new Vuex.Store({
         },
         setPost: (state, data) => {
             state.post = data
+        },
+        setComments: (state, data) => {
+            state.comments = data
         }
     },
     actions: {
@@ -24,7 +28,7 @@ export const store = new Vuex.Store({
                 .post('/api/posts')
                 .then(response => context.commit('setPosts', response.data))
         },
-        getPost: async(context, id) => {
+        getPost: async (context, id) => {
             await axios
                 .post('/api/post', {id})
                 .then(response => context.commit('setPost', response.data))
@@ -38,6 +42,22 @@ export const store = new Vuex.Store({
             await axios
                 .post(`/api/posts/delete`, {id})
                 .then(response => context.commit('setPosts', response.data))
+        },
+
+        addComment: async (context, data) => {
+            await axios
+                .post('/api/comments/create', data)
+                .then(response => context.commit('setComments', response.data))
+        },
+        getComments: async (context, id) => {
+            await axios
+                .post('/api/post', {id})
+                .then(response => context.commit('setComments', response.data.comments))
+        },
+        deleteComment: async (context, id) => {
+            await axios
+                .post(`/api/comments/delete`, {id})
+                .then(response => context.commit('setComments', response.data))
         },
     },
 });
