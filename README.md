@@ -11,8 +11,9 @@
     3. `php artisan key:generate`
     4. `php artisan migration`
     5. `php artisan route:cache`
-    6. `php artisan serve` - если Вы используете LAMP|XAMP и аналоги, но лучше поставить [Laravel Homestead](https://laravel.com/docs/8.x/homestead) (даже для обычных проектов он крут и дает много плюсов)
-    7. `npm run watch || npm run watch-poll`
+    6. `php artisan db:seed`
+    7. `php artisan serve` - если Вы используете LAMP|XAMP и аналоги, но лучше поставить [Laravel Homestead](https://laravel.com/docs/8.x/homestead) (даже для обычных проектов он крут и дает много плюсов)
+    8. `npm run watch || npm run watch-poll`
 
 ### Если возникают ошибки, то скорее всего они уже описаны в интернете :) 
 * Убедитесь что у Вас есть composer
